@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Calorie Estimator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .upload-btn {
+      border: 2px solid #007bff;
+      color: white;
+      background-color: #007bff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .upload-btn-wrapper input[type=file] {
+      font-size: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+    .results {
+      margin-top: 20px;
+    }
+    .results img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Food Calorie Estimator</h1>
+    <div class="upload-btn-wrapper">
+      <button class="upload-btn">Upload Image</button>
+      <input type="file" accept="image/*" id="file-input">
+    </div>
+    <div class="results" id="results">
+      <p id="food-name"></p>
+      <p id="calories"></p>
+      <img id="food-image" src="" alt="Food Image" style="display: none;">
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('file-input').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('food-image').src = e.target.result;
+          document.getElementById('food-image').style.display = 'block';
+          // Here you would call your API with the image data
+          // Simulating API call with a timeout
+          setTimeout(() => {
+            // Assume the API returns the following response
+            const apiResponse = {
+              foodName: "Pasta",
+              calories: 131
+            };
+            document.getElementById('food-name').innerText = `Food: ${apiResponse.foodName}`;
+            document.getElementById('calories').innerText = `Calories: ${apiResponse.calories} kcal`;
+          }, 2000);
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
